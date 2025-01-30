@@ -1,45 +1,38 @@
 /*
- * Programa que permite al usuario consultar la capital de un país.
- * Si el país no está en la lista, el usuario puede agregarlo.
+ * Este programa genera un arreglo con 20 números aleatorios entre 20 y 400.
+ * Luego permite al usuario elegir si quiere resaltar los múltiplos de 5 o de 7.
  */
 
-import java.util.HashMap;
 import java.util.Scanner;
 
-public class Codigo7 {
+public class Codigo6 {
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
+        int[] n = new int[20]; // Se crea el arreglo array para almacenar los números
+        Scanner scanner = new Scanner(System.in);
 
-        // Arreglo con países y sus capitales
-        HashMap<String, String> capitales = new HashMap<>();
-        capitales.put("Canadá", "Ottawa"); // Estaba medio mal escrito
-        capitales.put("Estados Unidos", "Washington DC");
-        capitales.put("México", "Ciudad de México"); // Nombre actualizado
-        capitales.put("Belice", "Belmopán");
-        capitales.put("Costa Rica", "San José"); // Mayúscula corregida
-        capitales.put("El Salvador", "San Salvador"); // Faltaba la capital del Salvador
-        capitales.put("Guatemala", "Ciudad de Guatemala");
-        capitales.put("Honduras", "Tegucigalpa");
-        capitales.put("Nicaragua", "Managua");
-        capitales.put("Panamá", "Panamá");
+        // Se hace el ciclo para los números aleatorios y estos se muestran en pantalla
+        for (int i = 0; i < 20; i++) {
+            n[i] = (int) (Math.random() * 381) + 20; // Números entre 20 y 400
+            System.out.print(n[i] + " ");
+        }
 
-        String c = ""; // Variable para almacenar el país ingresado
-        do {
-            System.out.print("Escribe el nombre de un país y te diré su capital (o 'salir' para terminar): ");
-            c = s.nextLine();
+        // Pedir al usuario qué múltiplos resaltar
+        System.out.println("\n¿Qué números quiere resaltar?");
+        System.out.print("(1 – los múltiplos de 5, 2 – los múltiplos de 7): ");
+        int opcion = scanner.nextInt(); // Se corrige la lectura de la entrada
 
-            if (!c.equalsIgnoreCase("salir")) { // Comparación corregida
-                if (capitales.containsKey(c)) { // Aquí se busca por clave, no por valor
-                    System.out.println("La capital de " + c + " es " + capitales.get(c));
-                } else {
-                    System.out.print("No conozco la respuesta. ¿Cuál es la capital de " + c + "?: ");
-                    String nuevaCapital = s.nextLine();
-                    capitales.put(c, nuevaCapital); // Agregar nueva capital al mapa
-                    System.out.println("Gracias por enseñarme nuevas capitales.");
-                }
+        // Determinar qué múltiplo se usará
+        int multiplo = (opcion == 1) ? 5 : 7; // Se corrige el operador ternario
+
+        // Recorre el arreglo y resaltar los múltiplos
+        for (int e : n) { // Se cambia 'foreach' por 'for-each' correcto
+            if (e % multiplo == 0) {
+                System.out.print("[" + e + "] "); // Se resaltan los múltiplos
+            } else {
+                System.out.print(e + " "); // Se imprimen normalmente los demás
             }
-        } while (!c.equalsIgnoreCase("salir")); // Corrección de sintaxis en el while
-
-        s.close(); // Cerrar scanner para evitar fugas de memoria
+        }
+        
+        scanner.close(); // Se cierra el scanner para evitar fugas de memoria
     }
 }
